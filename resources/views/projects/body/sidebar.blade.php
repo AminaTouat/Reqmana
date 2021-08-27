@@ -25,7 +25,7 @@
         <ul class="sidebar-menu" data-widget="tree">
             <li class="treeview">
                 <a href="#">
-                    <i data-feather="message-circle"></i>
+                    <i data-feather="folder"></i>
                     <span>{{$projet->title}}</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-right pull-right"></i>
@@ -41,14 +41,18 @@
                             <a href="#"><i class="ti-more"></i>user requirements</a>
                             @if(!$projet->usecases->isEmpty())
                             <ul class="treeview-menu">
-                                <li class="{{ ($route =='requirements.add'|| $route=='requirements.view' ||$route=='requirements.detail' ) ?'active':'' }}"><a href="{{ route('requirements.view',$projet->id) }}"><i class="ti-hand-point-up"></i>Add user requirements </a></li>
+                                <li class="{{ ($route =='requirements.add'|| $route=='requirements.view' ||$route=='requirements.detail'||$route=='requirements.edit' ) ?'active':'' }}"><a href="{{ route('requirements.view',$projet->id) }}"><i class="ti-hand-point-up"></i>Add user requirements </a></li>
+                               
                                 <li class="treeview"><a href="#">
                                     <i class="ti-more"></i>software requirements</a>
-                            
-                                <ul class="treeview-menu"> <li class="{{ ($route =='requirements.add')?'active':'' }}"><a href="{{ route('requirements.view',$projet->id) }}"><i class="ti-hand-point-up"></i>Add software requirements </a></li>
+                                    @if(!$projet->exigences->isEmpty())
+                                <ul class="treeview-menu"> <li class="{{ ($route =='Srequirements.add'|| $route=='Srequirements.view' ||$route=='Srequirements.detail' ||$route=='Srequirements.edit' )?'active':'' }}"><a href="{{ route('Srequirements.view',$projet->id) }}"><i class="ti-hand-point-up"></i>Add software requirements </a>
+                                </li>
                                 
                                 </ul>
+                                @endif
                             </li>
+                           
                             </ul>
                             @endif
                          </li>
@@ -57,10 +61,18 @@
 
                 </ul>
             </li>
+
+            <li class="{{ ($route == 'users.message')?'active':'' }}">
+                <a href="{{ route('users.message',$projet->id) }}">
+                    <i data-feather="message-circle"></i>
+                    <span>Messages</span>
+                </a>
+            </li>
+
             @if($resultat->role == 'chef_projet' )
              <li class="treeview {{ ($prefix == '/users')?'active':'' }} ">
                 <a href="#">
-                    <i data-feather="message-circle"></i>
+                    <i data-feather="users"></i>
                     <span>Stakeholders management</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-right pull-right"></i>

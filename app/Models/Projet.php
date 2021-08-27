@@ -17,4 +17,11 @@ class Projet extends Model
     public function exigences(){
         return $this->hasMany(Exigence::class);
     }
+    public function requirements(){
+        return $this->hasMany(Exigence::class);
+    }
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
 }

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\User;
+use DB;
 use App\Models\Projet;
 use Illuminate\Support\Facades\Auth;
 
@@ -64,12 +65,12 @@ class UserController extends Controller
     	]);
 
     	$data = new User();
-        $data->role = $request->role;
     	$data->name = $request->name;
     	$data->email = $request->email;
+		$role=$request->role;
     	$data->password = bcrypt($request->password);
         $data->save();
-    	$data->projets()->save(Projet::Find($projet_id));
+    	$data->projets()->save(Projet::Find($projet_id), ['inv'=>'1','role'=>$role]);
 		
 		
     	
@@ -98,7 +99,6 @@ class UserController extends Controller
     	$data = User::find($id);
     	$data->name = $request->name;
     	$data->email = $request->email;
-        $data->role = $request->role;
     	$data->save();
 
     	$notification = array(
@@ -203,6 +203,37 @@ class UserController extends Controller
 
     } 
 
+	public function InvUser(){
+		$resultats = Auth::user()->projets()->where('user_projet.inv','0')->get();
+		//dd($resultats);
+    	return view('backend.user.inv_user' ,compact('resultats'));
+
+    }
+	public function Accept($id){
+		$id_user=Auth::id();
+        $data = DB::table("user_projet")->where('user_projet.projet_id',$id)->where('user_projet.user_id',$id_user )->update(['inv'=>'1']);
+		
+         $notification = array(
+	      'message' => 'Accepted',
+	      'alert-type' => 'success'
+           );
+
+      return redirect()->back()->with($notification);
+
+    }
+	public function Refuse($id){
+		$id_user=Auth::id();
+        $data = DB::table("user_projet")->where('user_projet.projet_id',$id)->where('user_projet.user_id',$id_user )->update(['inv'=>'-1']);
+		
+         $notification = array(
+	      'message' => 'Refuse',
+	      'alert-type' => 'success'
+           );
+
+      return redirect()->back()->with($notification);
+
+    }
+	
 
 
 }

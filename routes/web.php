@@ -5,7 +5,9 @@ use App\Http\Controllers\ProjetsController;
 use App\Http\Controllers\UseCasesController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ExigencesController;
+use App\Http\Controllers\requirementsController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ChartController;
 use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\UserController;
@@ -41,6 +43,14 @@ Route::prefix('user')->group(function(){
     Route::get('/delete/{id}/{projet_id}', [UserController::class, 'UserDelete'])->name('users.delete');
     Route::get('getuser/{id}', [UserController::class, 'GetUser'])->name('user.getuser');
     Route::post('user/projet/store/{id}', [UserController::class, 'UserprojetStore'])->name('user.projet.store');
+    Route::get('inv', [UserController::class, 'InvUser'])->name('user.inv');
+    Route::get('/accept/{id}', [UserController::class, 'Accept'])->name('users.accept');
+    Route::get('/refuse/{id}', [UserController::class, 'Refuse'])->name('users.refuse');
+
+    //Message
+    Route::get('/message/{id}', [MessageController::class, 'index'])->name('users.message');
+    Route::get('/message/{id}/{projet_id}', [MessageController::class, 'create'])->name('users.send');
+    Route::post('/message/store', [MessageController::class, 'store'])->name('message.add');
 
     //Route Projet
     // Route::get('/projet',  [ProjetsController::class, 'index'])->name('index');
@@ -57,7 +67,18 @@ Route::prefix('requirements')->group(function(){
     Route::get('/edit/{id}', [ExigencesController::class, 'edit'])->name('requirements.edit');
     Route::get('/detail/{id}', [ExigencesController::class, 'detail'])->name('requirements.detail');
     Route::post('/update/{id}', [ExigencesController::class, 'update'])->name('requirements.update');
+    Route::post('/valide/{id}', [ExigencesController::class, 'valide'])->name('requirements.valide');
     Route::get('/delete/{id}', [ExigencesController::class, 'destroy'])->name('requirements.delete');
+});
+Route::prefix('Softwarrequirements')->group(function(){
+    Route::get('/view/{id}', [requirementsController::class, 'index'])->name('Srequirements.view');
+    Route::get('/create/{id}', [requirementsController::class, 'create'])->name('Srequirements.add');
+    Route::post('/store', [requirementsController::class, 'store'])->name('Srequirements.store');
+    Route::get('/edit/{id}', [requirementsController::class, 'edit'])->name('Srequirements.edit');
+    Route::get('/detail/{id}', [requirementsController::class, 'detail'])->name('Srequirements.detail');
+    Route::post('/update/{id}', [requirementsController::class, 'update'])->name('Srequirements.update');
+    Route::post('/valide/{id}', [requirementsController::class, 'valide'])->name('Srequirements.valide');
+    Route::get('/delete/{id}', [requirementsController::class, 'destroy'])->name('Srequirements.delete');
 });
 
 // User Profile and Change Password

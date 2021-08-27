@@ -21,12 +21,12 @@
                         <ol class="breadcrumb">
                           <li class="breadcrumb-item"><a href="{{ route('project.new') }}">{{$projet->title}}</a></li>
                           <li class="breadcrumb-item active" aria-current="page"> Use case</li>
-                          <li class="breadcrumb-item active" aria-current="page"> user requirements</li>
+                          <li class="breadcrumb-item active" aria-current="page"> software requirements</li>
                         </ol>
                       </nav>
-					   <h5 class="box-title"><i class="fa fa-fw fa-user"></i> User requirements </h5>
+					   <h5 class="box-title"><i class="fa fa-fw fa-user"></i> software requirements </h5>
 				  @if($resultat->role == 'chef_projet' ||$resultat->role == 'stakeholders')
-	<a  style="float: right;" class="btn btn-rounded btn-success mb-5" href="{{ route('requirements.add',$projet->id) }}"> Add</a>
+	<a  style="float: right;" class="btn btn-rounded btn-success mb-5" href="{{ route('Srequirements.add',$projet->id) }}"> Add</a>
                    @endif
 				</div>
 				<!-- /.box-header -->
@@ -81,7 +81,7 @@
 				<td>{{ $key+1 }}</td>
 				<td >
 					
-					<a href="{{ route('requirements.detail',$exigence->id) }}"  title={{$exigence->summary}} >{{substr($exigence->summary,0,20)}}</a>
+					<a href="{{ route('Srequirements.detail',$exigence->id) }}"  title={{$exigence->summary}} >{{substr($exigence->summary,0,20)}}</a>
 					
 				
 				</td>
@@ -99,8 +99,8 @@
 				@if($resultat->role == 'chef_projet' ||$resultat->role == 'stakeholders')
                 <td  style="width:1px; white-space:nowrap;" >
 					
-<a href="{{ route('requirements.edit',$exigence->id) }}" class="btn btn-info">Edit</a>
-<a href="{{ route('requirements.delete',$exigence->id ) }}" class="btn btn-danger">remove</a>
+<a href="{{ route('Srequirements.edit',$exigence->id) }}" class="btn btn-info">Edit</a>
+<a href="{{ route('Srequirements.delete',$exigence->id ) }}" class="btn btn-danger">remove</a>
 
 				</td>
 			
@@ -132,7 +132,7 @@
   <script type="text/javascript">
 	function change(id){
 	var valide = $('#valide'+id).val();
-	var url = "{{ route('requirements.valide', ":id") }}";
+	var url = "{{ route('Srequirements.valide', ":id") }}";
         url = url.replace(':id', id);
 	  //alert(valide);          
 	  if(valide==1){

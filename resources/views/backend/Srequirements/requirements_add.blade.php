@@ -8,7 +8,7 @@
 
 
             <section class="content">
-                <form method="post" action="{{ route('requirements.store') }}">
+                <form method="post" action="{{ route('Srequirements.store') }}">
                     @csrf
                 <!-- Basic Forms -->
                 <div class="box">
@@ -17,19 +17,19 @@
                             <ol class="breadcrumb">
                               <li class="breadcrumb-item"><a href="{{ route('project.new') }}">{{$projet->title}}</a></li>
                               <li class="breadcrumb-item active" aria-current="page"> Use case</li>
-                              <li class="breadcrumb-item active" aria-current="page"> user requirements</li>
+                              <li class="breadcrumb-item active" aria-current="page"> software requirements</li>
                             </ol>
                           </nav>
                         <div class="row">
                             <div class="col-6">
-                                <h5 class="box-title">Adding user Requirement</h5>
+                                <h5 class="box-title">Adding software Requirement</h5>
                             </div>
                         </div>
                             <div class="row" style="margin-top: 20px;">
                             <div class="col-1">
                                 <h6>Summary<span class="text-danger">*</span></h6>
                             </div>
-                            <div class="col-9">
+                                <div class="col-9">
                                 <input  class=" form-control" type="text" name="summary"  required/>
                             </div>
                         </div>
@@ -91,9 +91,7 @@
                                                                     class="form-control">
                                                                 <option value="{{ $projet->users()->find(Auth::user())->name }}" >{{ $projet->users()->find(Auth::user())->name }} ({{ $resultat->role }})
                                                                 </option>
-                                                                {{-- <option value="{{ $projet->user->name }}">{{ $projet->user->name }}</option> --}}
-                                                                {{-- <option value="should">Should</option>
-                                                                <option value="may">May</option> --}}
+                                                               
 
                                                             </select>
                                                         </div>
@@ -103,14 +101,16 @@
 													
 												<div class="row" style="margin-top: 27px;">
 													<div class="col-4">
-													<h6>Author</h6>
+													<h6>Source</h6>
 												</div>
 												<div class="col-8">
 													<div class="controls">
 														<select name="source" id="source" required=""
 																class="form-control">
-                                                                @foreach($allData as $key => $user )
-                                                                <option value="{{ $user->name }}" >{{ $user->name }}
+                                                                <option value="source" selected="" disabled="">not set
+                                                                </option>
+                                                                @foreach(App\Models\Exigence::get() as $key => $exigence )
+                                                                <option value="{{ $exigence->id }}" >{{ $exigence->id}}
                                                                 </option>
                                                                 @endforeach
 														
@@ -120,6 +120,15 @@
 												</div>	
 												
 											</div>
+                                            <div class="row" style="margin-top: 27px;">
+                                                <div class="col-4">
+                                                <h6>fit criteria </h6>
+                                            </div>
+                                            <div class="col-8">
+                                                <textarea class="form-control" name="fitC"></textarea>
+                                            </div>
+                                              
+                                        </div>
                                                     
 											</div>
 											<div class="col-9">
@@ -128,9 +137,7 @@
 													<textarea class="form-control" name="body" required></textarea>
 													<input type="hidden" name="projet_id" value="{{ $projet->id }}" />
 												</div>
-                                                
-                                                  
-											</div>
+                                             
 										</div>
                                            <!-- End Row -->
                                 
@@ -139,11 +146,11 @@
                             <!-- /.col -->
                         </div>
                         <div class="row" style="margin-top: 27px;">
-                            <div class="text-xs-right">
-                                <input type="submit" class="btn btn-rounded btn-info mb-5"
-                                       value="save">
-                            </div>
-                        </div>
+						<div class="text-xs-right">
+							<input type="submit" class="btn btn-rounded btn-info mb-5"
+								   value="save">
+						</div>
+                    </div>
 				
                         <!-- /.row -->
                     </div>

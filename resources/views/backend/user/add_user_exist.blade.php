@@ -118,7 +118,7 @@
 
 
 <script type="text/javascript">
-  $(document).on('click','#search',function(){   
+  $(document).on('click','#search',function(){  
     var email = $('#email').val();
 	if(email)
    {

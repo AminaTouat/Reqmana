@@ -7,13 +7,13 @@
             @csrf
             <div class="form-group">
                 <input type="text" name="body" class="form-control" />
-                <input type="hidden" name="use_case_id" value="{{ $use_case_id }}" />
+                <input type="hidden" name="requirement_id" value="{{ $requirement_id }}" />
                 <input type="hidden" name="parent_id" value="{{ $comment->id }}" />
             </div>
             <div class="form-group">
                 <input type="submit" class="btn btn-warning" value="Reply" />
             </div>
         </form>
-        @include('useCase.commentsDisplay', ['comments' => $comment->replies])
+        @include('backend.Srequirements.commentsDisplay', ['comments' => $comment->replies])
     </div>
 @endforeach

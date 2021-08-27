@@ -8,7 +8,7 @@
 
 
             <section class="content">
-                <form method="post" action="{{ route('requirements.update',$editData->id) }}">
+                <form method="post" action="{{ route('Srequirements.update',$editData->id) }}">
                     @csrf
                 <!-- Basic Forms -->
                 <div class="box">
@@ -17,12 +17,12 @@
                             <ol class="breadcrumb">
                               <li class="breadcrumb-item"><a href="{{ route('project.new') }}">{{$projet->title}}</a></li>
                               <li class="breadcrumb-item active" aria-current="page"> Use case</li>
-                              <li class="breadcrumb-item active" aria-current="page"> user requirements</li>
+                              <li class="breadcrumb-item active" aria-current="page"> software requirements</li>
                             </ol>
                           </nav>
                         <div class="row">
                             <div class="col-6">
-                        <h5 class="box-title">Update user Requirement</h5>
+                        <h5 class="box-title">Update software Requirement</h5>
                             </div>
                         </div>
                         <div class="row" style="margin-top: 20px;">
@@ -31,15 +31,9 @@
                             </div>
                             <div class="col-9">
                                 <input  class=" form-control" value="{{$editData->summary}}" type="text" name="summary"  required/>
-                           </div>
+                          </div>
                         </div>
-                            <div class="row" style="margin-top: 20px;">
-                            <div class="col-6">
-                        <a href="" data-toggle="modal" data-target="#exampleModal">
-                            Add  ...
-                          </a>
-                            </div>
-                        </div>
+                         
 
                     </div>
                     <!-- /.box-header -->
@@ -100,10 +94,6 @@
                                                                     class="form-control">
                                                                 <option value="{{$editData->entredBy}}" >{{$editData->entredBy}}
                                                                 </option>
-                                                                {{-- <option value="{{ $projet->user->name }}">{{ $projet->user->name }}</option> --}}
-                                                                {{-- <option value="should">Should</option>
-                                                                <option value="may">May</option> --}}
-
                                                             </select>
                                                         </div>
 													</div>	
@@ -112,25 +102,34 @@
 													
 												<div class="row" style="margin-top: 27px;">
 													<div class="col-4">
-													<h6>Author</h6>
+													<h6>source</h6>
 												</div>
 												<div class="col-8">
 													<div class="controls">
-														<select name="source" id="source" required=""
-																class="form-control">
-															{{-- <option value="{{$editData->source}}" >{{$editData->source}}
-															</option> --}}
-                                                            @foreach($allData as $key => $user )
-															<option value="{{ $user->name }}" >{{ $user->name }}
-															</option>
-                                                            @endforeach
+                                                        <select name="source" id="source" required=""
+                                                        class="form-control">
+                                                        <option value="{{$editData->source}}" >{{$editData->source}}
+                                                        </option>
+                                                        @foreach(App\Models\Exigence::get() as $key => $exigence )
+                                                        <option value="{{ $exigence->id }}" >{{ $exigence->id}}
+                                                        </option>
+                                                        @endforeach
+                                                
 
-														</select>
+                                                </select>
 													</div>
 												</div>	
 												
 											</div>
-                                                    
+                                            <div class="row" style="margin-top: 27px;">
+                                                <div class="col-4">
+                                                <h6>fit criteria </h6>
+                                            </div>
+                                            <div class="col-8">
+                                                <textarea class="form-control" value="{{$editData->fitC}}" name="fitC"></textarea>
+                                            </div>
+                                              
+                                        </div>  
 											</div>
 											<div class="col-9">
 												<div class="form-group">
@@ -146,7 +145,7 @@
                             </div>
                             <!-- /.col -->
                         </div>
-                        <div class="row" style="margin-top: 27px;">
+						<div class="row" style="margin-top: 27px;">
                             <div class="text-xs-right">
                                 <input type="submit" class="btn btn-rounded btn-info mb-5"
                                        value="save">

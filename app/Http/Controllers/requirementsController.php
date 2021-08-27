@@ -1,15 +1,14 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Requirement;
 use App\Models\Exigence;
 use App\Models\Projet;
 use App\Models\User;
 use Auth;
 use App\Models\Link;
-
-class ExigencesController extends Controller
+class requirementsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,9 +18,9 @@ class ExigencesController extends Controller
     public function index($id)
     {
         $projet = Projet::find($id);
-        $exigences = Exigence::where('projet_id' , $id)->get();
+        $exigences = Requirement::where('projet_id' , $id)->get();
         $resultat= Auth::user()->projets()->where('projet_id',$id)->select('user_projet.role')->first();
-        return view('backend.requirements.requirements_view' , compact('resultat','exigences','projet'));
+        return view('backend.Srequirements.requirements_view' , compact('resultat','exigences','projet'));
     }
 
     /**
@@ -34,7 +33,8 @@ class ExigencesController extends Controller
         $projet = Projet::find($id);
         $data['allData'] = User::join('user_projet','user_id','users.id')->where('user_projet.projet_id',$id)->get();
         $resultat= Auth::user()->projets()->where('projet_id',$id)->select('user_projet.role')->first();
-        return view('backend.requirements.requirements_add' ,$data,compact('resultat','projet'));
+        //  $exigence = Exigence::get();
+        return view('backend.Srequirements.requirements_add' ,$data,compact('resultat','projet'));
     }
 
     /**
@@ -44,21 +44,13 @@ class ExigencesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-       
-        // if($request->requirementType!= null && $request->importance!=null && $request->entredBy!=null && $request->source!=null && $request->summary!=null && $request->body!=null){
-        //     $request->status = "Implemented";
-        // }
-        // else  {$request->status = "Draft";}
-        // $input = $request->all();
-        // $id=$request->projet_id;
-        // Exigence::create($input);
-       
-        $data = new Exigence();
+    {   
+        $data = new Requirement();
         $data->requirementType = $request->requirementType;
         $data->importance = $request->importance;
         $data->entredBy = $request->entredBy;
         $data->source = $request->source;
+        $data->fitC = $request->fitC;
         $data->summary = $request->summary;
         $data->body = $request->body;
         if($data->requirementType!= null && $data->importance!=null && $data->entredBy!=null && $data->source!=null && $data->summary!=null && $data->body!=null){
@@ -71,12 +63,12 @@ class ExigencesController extends Controller
         
         $id=$request->projet_id;
         $notification = array(
-            'message' => 'User requirement created successfully',
+            'message' => 'Software requirement created successfully',
             'alert-type' => 'success'
         );
 
 
-        return redirect()->route('requirements.view',$id)->with($notification);
+        return redirect()->route('Srequirements.view',$id)->with($notification);
     }
 
     /**
@@ -99,22 +91,22 @@ class ExigencesController extends Controller
     public function edit($id)
     {
 
-        $editData = Exigence::find($id);
+        $editData = Requirement::find($id);
         $links = Link::where('exigence_id' , $id)->get();;
         $id = $editData->projet_id;
         $projet = Projet::find($id);
         $data['allData'] = User::join('user_projet','user_id','users.id')->where('user_projet.projet_id',$id)->get();
         $resultat= Auth::user()->projets()->where('projet_id',$id)->select('user_projet.role')->first();
-        return view('backend.requirements.requirements_edit',$data,compact( 'resultat','editData','projet','links'));
+        return view('backend.Srequirements.requirements_edit',$data,compact( 'resultat','editData','projet','links'));
         //
     }
     public function detail($id)
     {
-        $editData = Exigence::find($id);
+        $editData = Requirement::find($id);
         $id = $editData->projet_id;
         $projet = Projet::find($id);
         $resultat= Auth::user()->projets()->where('projet_id',$id)->select('user_projet.role')->first();
-        return view('backend.requirements.requirements_detail',compact('resultat','editData','projet'));
+        return view('backend.Srequirements.requirements_detail',compact('resultat','editData','projet'));
         //
     }
 
@@ -127,11 +119,12 @@ class ExigencesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = Exigence::find($id);
+        $data = Requirement::find($id);
         $data->requirementType = $request->requirementType;
         $data->importance = $request->importance;
         $data->entredBy = $request->entredBy;
         $data->source = $request->source;
+        $data->fitC = $request->fitC;
         $data->summary = $request->summary;
         $data->body = $request->body;
         if($data->requirementType!= null && $data->importance!=null && $data->entredBy!=null && $data->source!=null && $data->summary!=null && $data->body!=null){
@@ -142,14 +135,14 @@ class ExigencesController extends Controller
     	$data->save();
         $id=$request->projet_id;
     	$notification = array(
-    		'message' => 'User requirement Updated Successfully',
+    		'message' => 'Software requirement Updated Successfully',
     		'alert-type' => 'info'
     	);
     
-    	return redirect()->route('requirements.view',$id)->with($notification);
+    	return redirect()->route('Srequirements.view',$id)->with($notification);
     }
     public function valide(Request $request, $id){
-        $data = Exigence::find($id);
+        $data = Requirement::find($id);
         $data->valide = $request->valide;
         // $data->status = "aproved";
         $data->save();
@@ -164,15 +157,15 @@ class ExigencesController extends Controller
      */
     public function destroy($id)
     {
-        $exigence = Exigence::find($id);
+        $exigence = Requirement::find($id);
         $id_projet=$exigence->projet_id;
     	$exigence->delete();
         
     	$notification = array(
-    		'message' => 'User Requirement Deleted Successfully',
+    		'message' => 'Software Requirement Deleted Successfully',
     		'alert-type' => 'error'
     	);
 
-    	return redirect()->route('requirements.view',$id_projet)->with($notification);
+    	return redirect()->route('Srequirements.view',$id_projet)->with($notification);
     }
 }

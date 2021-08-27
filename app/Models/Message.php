@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
   
-class Comment extends Model
+class Message extends Model
 {
     use HasFactory, SoftDeletes;
    
@@ -17,7 +17,7 @@ class Comment extends Model
      *
      * @var array
      */
-    protected $fillable = ['user_id', 'use_case_id', 'parent_id' ,'requirement_id', 'exigence_id', 'body'];
+    protected $fillable = ['user_id',  'parent_id' ,  'body' ,'projet_id'];
    
     /**
      * The belongs to Relationship

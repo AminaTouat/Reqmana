@@ -25,6 +25,13 @@
         <ul class="sidebar-menu" data-widget="tree">
 
              {{-- @if(Auth::user()->usertype == 'user') --}}
+              <li class="{{ ($route == 'user.inv')?'active':'' }}">
+                    <a href="{{ route('user.inv') }}">
+                        <i data-feather="user"></i>
+                        <span>invitations</span>
+                    </a>
+                </li>
+        
            
             
         </ul>

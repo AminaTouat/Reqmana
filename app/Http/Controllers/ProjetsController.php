@@ -11,12 +11,14 @@ class ProjetsController extends Controller
 {
     public function index() {
         
-        $projets = Projet::get();
+        $projets = Auth::user()->projets()->where('user_projet.inv','1')->get();
+        //dd($projets);
+       // $resultat= Auth::user()->projets()->where('projet_id',$id)->select('user_projet.role')->first();
         return view('dashboard.index' , compact('projets'));
     
     }
     public function nouveauProjet(){
-        $projets = Projet::get();
+        $projets = Auth::user()->projets()->where('user_projet.inv','1')->get();
         return view('projects.add_project' , compact('projets'));
     }
     public function createProjet(Request $request){

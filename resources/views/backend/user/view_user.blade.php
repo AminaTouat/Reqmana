@@ -23,7 +23,7 @@
 				</div>
 				<!-- /.box-header -->
 				<div class="box-body">
-					<div class="table-responsive">
+					<div  class="table-responsive">
 					  <table id="example1" class="table table-bordered table-striped">
 						<thead>
 			<tr>
@@ -48,7 +48,11 @@
 				</td>
 				@elseif($user->role != "chef_projet" && ($user->inv =='1'))
 				<td>
-					<i data-feather="user-plus"></i>Accepted
+					<i data-feather="user-check"></i>Accepted
+				</td>
+				@elseif($user->role != "chef_projet" && ($user->inv =='-1'))
+				<td>
+					<i data-feather="user-x"></i>Refused
 				</td>
 				@endif
 				{{-- <td>

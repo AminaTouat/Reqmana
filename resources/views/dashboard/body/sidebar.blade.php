@@ -23,18 +23,37 @@
 
         <!-- sidebar menu-->
         <ul class="sidebar-menu" data-widget="tree">
-
+            {{-- <li class="treeview {{ ($prefix == '/users')?'active':'' }} ">
+                <a href="#">
+                    <i data-feather="bell"></i>
+                    <span>activityt</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-right pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class=""><a href="{{ route('user.inv') }}"><i class="ti-user"></i>invitations</a></li>
+                   
+                </ul>
+            </li>
+             --}}
+             <li class="{{ ($route == 'user.inv')?'active':'' }}">
+                <a href="{{ route('user.inv') }}">
+                    <i data-feather="user"></i>
+                    <span>invitations</span>
+                </a>
+            </li>
               @foreach($projets as $projet)
-                 @if($projet->users()->find(Auth::id()))
+                 
             <li class="{{ ($route == 'project.current')?'active':'' }}">
                 <a href="{{ route('project.current',$projet->id) }}">
-                    <i data-feather="pie-chart"></i>
+                    <i data-feather="folder"></i>
                     <span>{{$projet->title}}</span>
                 </a>
             </li>
-            @endif
              @endforeach
         </ul>
     </section>
 
 </aside>
+{{-- <li class=""><a a href="{{ route('users.message') }}"><i class="ti-comment-alt"></i>messages</a></li> --}}
