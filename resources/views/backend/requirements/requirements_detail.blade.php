@@ -12,7 +12,8 @@
                 <!-- Basic Forms -->
                 <div class="box">
                     <div class="box-header with-border">
-                        <h5 class="box-title">{{$editData->body}}</h5>
+						<a href="{{ route('requirements.view',$projet->id) }}"><i data-feather="arrow-left" style="size: 60px" ></i></a>
+                        <h5 class="box-title">{{$editData->summary}}</h5>
 
                     </div>
                     <!-- /.box-header -->

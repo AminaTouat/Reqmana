@@ -9,3 +9,4 @@ To setup our application you need to:
 - php artisan key:generate
 - update the .env file database credentials
 - php artisan migrate
+-php artisan db:seed

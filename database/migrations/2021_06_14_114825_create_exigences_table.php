@@ -22,7 +22,7 @@ class CreateExigencesTable extends Migration
             $table->string('entredBy');
             $table->string('source');
             $table->string('summary')->nullable();
-            $table->string('status')->nullable();
+            $table->string('status')->default('Draft');
             $table->boolean('valide')->default(0);
             $table->text('body')->nullable();
             $table->softDeletes();

@@ -32,7 +32,9 @@
 				<th>name</th>
 				<th>E-mail</th>
 				<th width="25%">Invitation</th>
-				 
+				@if($resultat->role == 'chef_projet')
+				<th width="25%"></th>
+				 @endif
 			</tr>
 		</thead>
 		<tbody>
@@ -54,13 +56,17 @@
 				<td>
 					<i data-feather="user-x"></i>Refused
 				</td>
+				@else 
+				<td></td>
 				@endif
-				{{-- <td>
-<a href="{{ route('users.edit',[$user->id , $projet->id]) }}" class="btn btn-info">Edit</a>
+				@if($resultat->role == 'chef_projet')
+				<td>
+{{-- <a href="{{ route('users.edit',[$user->id , $projet->id]) }}" class="btn btn-info">Edit</a> --}}
 <a href="{{ route('users.delete',[$user->id , $projet->id]) }}" class="btn btn-danger" id="delete">remove</a>
 
-				</td> --}}
-				 
+
+				</td>
+				 @endif
 			</tr>
 			@endforeach
 							 

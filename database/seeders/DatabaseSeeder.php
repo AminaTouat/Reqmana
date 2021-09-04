@@ -16,15 +16,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        foreach(range(1,100)as $index){
-            DB::table('users')->insert([
-                'name' => Str::random(10),
-                'email' => Str::random(10).'@gmail.com',
-                'password' => Hash::make('123456789'),
-                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            ]);
-        }
+        // foreach(range(1,100)as $index){
+        //     DB::table('users')->insert([
+        //         'name' => Str::random(10),
+        //         'email' => Str::random(10).'@gmail.com',
+        //         'password' => Hash::make('123456789'),
+        //         'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        //     ]);
+        // }
+       
         
-        // \App\Models\User::factory(10)->create();
     }
 }

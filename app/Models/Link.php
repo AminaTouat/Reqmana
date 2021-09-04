@@ -14,7 +14,7 @@ class Link extends Model
      *
      * @var array
      */
-    protected $fillable = ['exigence_id', 'type', 'comment'];
+    protected $fillable = ['exigence_id','nonfnc_id'];
     public function exigence(){
         return $this->belongsTo(Exigence::class);
     }

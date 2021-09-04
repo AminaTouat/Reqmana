@@ -13,27 +13,6 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    public function dashboard(){
-        $chart = new DashboardChart();
-        $days = $this->generateDateRange(Carbon::now()->subDays(30), Carbon::now());
-        $users = [];
-
-        foreach ($days as $day){
-            $users = User::whereDate('created_at', $day)->where('id', Auth::id())->count();
-        }
-
-        $chart->dataset('Registered Users', 'line', $users);
-        $chart->labels($days);
-
-        return view('dashboard.index', compact('chart'));
-    }
-
-    private function generateDateRange(Carbon $start_date, Carbon $end_date){
-        $dates = [];
-        for($date = $start_date; $date->lte($end_date); $date->addDay()){
-            $dates[] = $date->format('Y-m-d');
-        }
-    }
 
     public function UserView($id){
     	// $allData = User::all();
@@ -88,7 +67,9 @@ class UserController extends Controller
 
     public function UserEdit($id){
     	$editData = User::find($id);
-    	return view('backend.user.edit_user',compact('editData'));
+		$projet = Projet::find($id);
+		$resultat= Auth::user()->projets()->where('projet_id',$id)->select('user_projet.role')->first();
+    	return view('backend.user.edit_user',compact('editData','projet','resultat'));
 
     }
 
@@ -205,7 +186,7 @@ class UserController extends Controller
 
 	public function InvUser(){
 		$resultats = Auth::user()->projets()->where('user_projet.inv','0')->get();
-		//dd($resultats);
+		// dd($resultats);
     	return view('backend.user.inv_user' ,compact('resultats'));
 
     }

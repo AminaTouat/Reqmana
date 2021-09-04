@@ -125,7 +125,7 @@ class UseCasesController extends Controller
         
     	$notification = array(
     		'message' => 'Use  Case Deleted Successfully',
-    		'alert-type' => 'info'
+    		'alert-type' => 'error'
     	);
 
     	return redirect()->route('add.useCase',$id_projet)->with($notification);

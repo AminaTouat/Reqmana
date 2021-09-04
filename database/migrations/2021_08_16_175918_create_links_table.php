@@ -16,12 +16,16 @@ class CreateLinksTable extends Migration
         Schema::create('links', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('exigence_id')->unsigned()->index();
-            $table->string('comment');
-            $table->string('type');
+            $table->integer('parent_id')->unsigned()->index();
+            // $table->string('comment');
+            // $table->string('type');
             $table->timestamps();
         });
         Schema::table('links', function($table) {
-            $table->foreign('exigence_id')->references('id')->on('exigences');
+            $table->foreign('exigence_id')->references('id')->on('exigences')->onDelete('cascade');
+    });
+        Schema::table('links', function($table) {
+            $table->foreign('parent_id')->references('id')->on('exigences')->onDelete('cascade');
     });
     }
 

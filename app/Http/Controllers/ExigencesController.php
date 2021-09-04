@@ -100,12 +100,13 @@ class ExigencesController extends Controller
     {
 
         $editData = Exigence::find($id);
-        $links = Link::where('exigence_id' , $id)->get();;
-        $id = $editData->projet_id;
-        $projet = Projet::find($id);
-        $data['allData'] = User::join('user_projet','user_id','users.id')->where('user_projet.projet_id',$id)->get();
-        $resultat= Auth::user()->projets()->where('projet_id',$id)->select('user_projet.role')->first();
-        return view('backend.requirements.requirements_edit',$data,compact( 'resultat','editData','projet','links'));
+        $links = Link::where('parent_id' , $id)->get();;
+        $projet_id = $editData->projet_id;
+        $projet = Projet::find($projet_id);
+        $exigences = Exigence::where('projet_id' , $projet_id)->where('requirementType' , 'nonfunctional')->get();
+        $data['allData'] = User::join('user_projet','user_id','users.id')->where('user_projet.projet_id',$projet_id)->get();
+        $resultat= Auth::user()->projets()->where('projet_id',$projet_id)->select('user_projet.role')->first();
+        return view('backend.requirements.requirements_edit',$data,compact( 'exigences','resultat','editData','projet','links'));
         //
     }
     public function detail($id)
@@ -151,7 +152,9 @@ class ExigencesController extends Controller
     public function valide(Request $request, $id){
         $data = Exigence::find($id);
         $data->valide = $request->valide;
-        // $data->status = "aproved";
+        if($request->valide=='1'){
+        $data->status = "Approved";
+        }
         $data->save();
 
     }

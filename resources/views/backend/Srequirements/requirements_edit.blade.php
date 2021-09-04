@@ -121,22 +121,20 @@
 												</div>	
 												
 											</div>
-                                            <div class="row" style="margin-top: 27px;">
-                                                <div class="col-4">
-                                                <h6>fit criteria </h6>
-                                            </div>
-                                            <div class="col-8">
-                                                <textarea class="form-control" value="{{$editData->fitC}}" name="fitC"></textarea>
-                                            </div>
-                                              
-                                        </div>  
+                                            
 											</div>
-											<div class="col-9">
+                                            <div class="col-9">
 												<div class="form-group">
 													<h6>Description <span class="text-danger">*</span></h6>
-													<textarea class="form-control" name="body" autocorrect="true" autocapitalize="true">{{$editData->body}}</textarea>
+													<textarea class="form-control" name="body"autocorrect="true" autocapitalize="true" rows="5" cols="33">{{$editData->body}}</textarea>
 													<input type="hidden" name="projet_id" value="{{ $projet->id }}" />
 												</div>
+												<div class="row" style="margin-top: 27px;">
+													<div class="form-group">
+													<h6>fit criteria</h6>
+													<textarea class="form-control"name="fitC"autocorrect="true" autocapitalize="true" rows="5" cols="33">{{$editData->fitC}}</textarea>
+												</div>
+											</div>
 											</div>
 										</div>
                                            <!-- End Row -->

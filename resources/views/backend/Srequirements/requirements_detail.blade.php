@@ -12,7 +12,7 @@
                 <!-- Basic Forms -->
                 <div class="box">
                     <div class="box-header with-border">
-                        <h5 class="box-title">{{$editData->body}}</h5>
+                        <h5 class="box-title">{{$editData->summary}}</h5>
 
                     </div>
                     <!-- /.box-header -->
@@ -58,12 +58,20 @@
 													
 												<div class="row" style="margin-top: 27px;">
 													<div class="col-7">
-													<h6>Author</h6>
+													<h6>Source</h6>
 												</div>
+												@if($editData->source !=null)
 												<div class="col-5">
-                                                    <h6 style="color:black;">{{$editData->source}}</h6>
+                                                    <h6 ><a style="color:black;" href="{{ route('Srequirements.source',[$projet->id ,$editData->source]) }}">UFR{{$editData->source}}</a></h6>
 													
-												</div>	
+												</div>
+												@else
+												<div class="col-5">
+                                                    <h6 ><a style="color:black;">UFR{{$editData->source}}</a></h6>
+													
+												</div>
+												@endif
+
 												
 											</div>
 												<div class="row" style="margin-top: 27px;">
@@ -87,24 +95,22 @@
 												
 											</div>
                                                     
-												<div class="row" style="margin-top: 27px;">
-													<div class="col-7">
-													<h6>fit criteria</h6>
-												</div>
-												<div class="col-5">
-                                                    <h6 style="color:black;">{{ $editData->fitC }}</h6>
-													
-												</div>	
 												
-											</div>
                                                     
 											</div>
+											
 											<div class="col-6">
 												<div class="form-group">
 													<h6>Description <span class="text-danger">*</span></h6>
-													<textarea class="form-control" name="body">{{$editData->body}}</textarea>
+													<textarea class="form-control" name="body" rows="5" cols="33">{{$editData->body}}</textarea>
 													<input type="hidden" name="projet_id" value="{{ $projet->id }}" />
 												</div>
+												<div class="row" style="margin-top: 27px;">
+													<div class="form-group">
+													<h6>fit criteria</h6>
+													<textarea class="form-control"name="fitC" rows="5" cols="33">{{$editData->fitC}}</textarea>
+												</div>
+											</div>
 											</div>
                                             <div class="col-3">
                                                 <div id="{{$editData->id}}" class="form-group" >

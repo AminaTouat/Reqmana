@@ -92,12 +92,11 @@ class requirementsController extends Controller
     {
 
         $editData = Requirement::find($id);
-        $links = Link::where('exigence_id' , $id)->get();;
         $id = $editData->projet_id;
         $projet = Projet::find($id);
         $data['allData'] = User::join('user_projet','user_id','users.id')->where('user_projet.projet_id',$id)->get();
         $resultat= Auth::user()->projets()->where('projet_id',$id)->select('user_projet.role')->first();
-        return view('backend.Srequirements.requirements_edit',$data,compact( 'resultat','editData','projet','links'));
+        return view('backend.Srequirements.requirements_edit',$data,compact( 'resultat','editData','projet'));
         //
     }
     public function detail($id)
@@ -144,7 +143,9 @@ class requirementsController extends Controller
     public function valide(Request $request, $id){
         $data = Requirement::find($id);
         $data->valide = $request->valide;
-        // $data->status = "aproved";
+        if($request->valide=='1'){
+            $data->status = "Approved";
+            }
         $data->save();
 
     }
@@ -167,5 +168,13 @@ class requirementsController extends Controller
     	);
 
     	return redirect()->route('Srequirements.view',$id_projet)->with($notification);
+    }
+    public function source($id,$id_exigence)
+    {
+        $projet = Projet::find($id);
+        
+        $exigences = Exigence::where('id',$id_exigence)->get();
+        $resultat= Auth::user()->projets()->where('projet_id',$id)->select('user_projet.role')->first();
+        return view('backend.Srequirements.source' , compact('resultat','exigences','projet'));
     }
 }

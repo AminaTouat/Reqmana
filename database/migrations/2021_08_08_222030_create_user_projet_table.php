@@ -23,11 +23,11 @@ class CreateUserProjetTable extends Migration
         
         });
             Schema::table('user_projet', function($table) {
-                $table->foreign('user_id')->references('id')->on('users');
+                $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             
         });
             Schema::table('user_projet', function($table) {
-                $table->foreign('projet_id')->references('id')->on('projets');
+                $table->foreign('projet_id')->references('id')->on('projets')->onDelete('cascade');
             
         });
             Schema::table('user_projet', function($table) {

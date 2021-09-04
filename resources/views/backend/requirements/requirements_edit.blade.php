@@ -13,6 +13,7 @@
                 <!-- Basic Forms -->
                 <div class="box">
                     <div class="box-header with-border">
+                        
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                               <li class="breadcrumb-item"><a href="{{ route('project.new') }}">{{$projet->title}}</a></li>
@@ -20,6 +21,7 @@
                               <li class="breadcrumb-item active" aria-current="page"> user requirements</li>
                             </ol>
                           </nav>
+                          
                         <div class="row">
                             <div class="col-6">
                         <h5 class="box-title">Update user Requirement</h5>
@@ -166,12 +168,13 @@
 
         </div>
     </div>
+ {{-- modal de add non FncReq --}}
 
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document" style="    max-width: 857px;        ">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Add non fonctional link</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Add non fonctional Req</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -195,7 +198,7 @@
                     </div>	
                     
                 </div>
-                <div class="row" style="margin-top: 24px;">
+                {{-- <div class="row" style="margin-top: 24px;">
                     <div class="col-2">
                         <h6>Comment</h6>
                     </div>
@@ -204,34 +207,57 @@
                         <input type="text" style="    border-color: #b3c5d9; border: 1px solid #ced4da; width: inherit; " />
                    </div>	
                     
-                </div>
+                </div> --}}
             </div>
+            <div class="row" style="margin-top: 24px;">
+                <div class="col-8">
+                <a href="" style="margin-left: 24px;" data-toggle="modal" data-target="#itemsModal"> Add additional items </a>
+                </div>
+                <div class="col-3">
+                <a href="" type="submit" value="save" class="btn">Remove</a>
+               </div>
+        </div>
             <div class="box-body">
-                {{-- @foreach($links as $link)
-                @endforeach --}}
-                <table id="example1"  class="table table-fit" >
-                <div class="row">
-                    <div class="col-4">
-                        <a>Item Type</a>
-                    </div>
-                    <div class="col-6">
-                        <a>Summary</a>
-                    </div>
-                    <div class="col-2">
-                        <a>Relation</a>
-                    </div>
-                </div>
-                <div class="row" style="margin-top: 27px; color:black;">
-                    <div class="col-4">
-                        <a>{{$editData->requirementType}}</a>
-                    </div>
-                    <div class="col-6">
-                        <a>{{$editData->summary}}</a>
-                    </div>
-                    <div class="col-2">
-                        <a>Parent</a>
-                    </div>
-                </div>
+                
+               
+                <table   class="table table-fit" >
+                    <thead>
+                        <tr >
+                            <th></th>
+                            <th>Item Type</th>
+                            <th>Number</th>
+                            <th>Summary</th>
+                            <th>Relation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td>{{$editData->requirementType}}</td>
+                            <td>{{$editData->id}}</td>
+                            <td>{{$editData->summary}}</td>
+                            <td><strong>Parent</strong></td>
+                        </tr>
+                        @foreach($links as $link)
+                        <tr>
+                            <td>
+                            <div class="form-check">
+                                {{-- <input type="hidden" name="parent_id[]" value="{{$editData->id}}"  > --}}
+                                <input class="form-check-input" name="sup[]" type="checkbox"  value="{{$link->id}}" id="{{$link->id}}" 
+                                 >
+                                <label class="form-check-label" for="{{$link->id}}">
+                                </label>
+                            </div>
+                        </td>
+                            <td><i data-feather="corner-down-right" ></i>{{App\Models\Exigence::find($link->exigence_id)->requirementType}}</td>
+                            <td>{{$link->exigence_id}}</td>
+                            <td>{{App\Models\Exigence::find($link->exigence_id)->summary}}</td>
+                            <td>child</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+
+                   
             </table>
             </div>
                 </div>
@@ -243,7 +269,74 @@
           </div>
         </div>
       </div>
-    
 
+      {{-- modal items --}}
+    
+      <div class="modal fade" id="itemsModal" tabindex="-1" role="dialog" aria-labelledby="itemsModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document" style="    max-width: 600px;  ">
+            <form method="post" action="{{ route('link.store') }}">
+                @csrf
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="itemsModalLabel">non fonctional Req</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <div class="box">
+                   
+            <div class="box-body">
+                {{-- @foreach($links as $link)
+                @endforeach --}}
+                <table id="example1"  class="table table-fit" >
+					
+                    <thead>
+        <tr >
+            <th></th>
+            <th width="5%">Tag</th>
+            <th >Summary</th>
+            <th >status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($exigences as $key => $exigence  )
+        <tr>
+            <td>
+                
+                    <div class="form-check">
+                        <input type="hidden" name="parent_id[]" value="{{$editData->id}}"  >
+                        <input class="form-check-input" name="exigence_id[]" type="checkbox"  value="{{$exigence->id}}" id="{{$key}}" 
+                         >
+                        <label class="form-check-label" for="{{$key}}">
+                        </label>
+                    </div>
+                
+            </td> 
+            <td>{{ $key+1 }}</td>
+            <td >
+                
+                <a title={{$exigence->summary}} >{{substr($exigence->summary,0,20)}}</a>
+            </td>
+            <td style="width:1px; white-space:nowrap;" >{{ $exigence->status }}</td>
+          
+        </tr>
+        @endforeach
+
+                    </tbody>
+                   
+                  </table>
+            
+            </div>
+                </div>
+            </div> 
+            <div class="modal-footer">
+              <input type="submit" class="btn btn-rounded btn-info mb-5"
+                                       value="save">
+            </div>
+          </div>
+        </form>
+        </div>
+      </div>
       
 @endsection

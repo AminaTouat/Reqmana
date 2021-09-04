@@ -36,7 +36,9 @@
 					
 						<thead>
 			<tr >
+				@if($resultat->role == 'chef_projet')
 				<th></th>
+				@endif
 				<th width="5%">Tag</th>
 				<th >Summary</th>
 				<th >Requirement Type</th>
@@ -65,23 +67,14 @@
 							</label>
 						</div>
 				</td> 
-				@elseif($resultat->role != 'chef_projet' && $exigence->valide ==1) 
-				<td>
-
-					<div class="form-check">
-						<input class="form-check-input" name="valide" type="checkbox" value="{{$exigence->valide}}" id="valide" checked  >
-						<label class="form-check-label" class="valide" for="valide">
-						</label>
-					</div>
-			</td> 
-			@else 
-			<td></td>
 				@endif
+				
+				
 			
-				<td>{{ $key+1 }}</td>
+				<td>UR{{ $key+1 }}</td>
 				<td >
 					
-					<a href="{{ route('requirements.detail',$exigence->id) }}"  title={{$exigence->summary}} >{{substr($exigence->summary,0,20)}}</a>
+					<a href="{{ route('requirements.detail',$exigence->id) }}" title={{$exigence->summary}} >{{$exigence->summary}}</a>
 					
 				
 				</td>
@@ -89,12 +82,18 @@
 				<td  @if($exigence->importance == "should") style="background-color: crimson;color: azure;" @elseif($exigence->importance == "must") style="background-color: goldenrod; color: azure;"  @elseif($exigence->importance == "may") style="background-color: seagreen; color: azure;"  @endif>  {{ $exigence->importance }}</td>
 				@if($exigence->status == "Implemented")
 				<td style="width:1px; white-space:nowrap;" ><i data-feather="check" style="color :rgb(20, 220, 87)"></i>{{ $exigence->status }}</td>
-					@else
+					@elseif($exigence->status == "Draft")
 				<td style="width:1px; white-space:nowrap;"><i data-feather="file-text" style="color :rgb(20, 220, 87)"></i>{{ $exigence->status }}</td>
+				@else 
+				<td style="width:1px; white-space:nowrap;"><i data-feather="flag" style="color :rgb(20, 220, 87) ;"></i>{{ $exigence->status }}</td>
 				@endif
-				{{-- <td>{{ $exigence->entredBy }}</td> --}}
+
+				@if(App\Models\Link::where('parent_id',$exigence->id)->first())
+				<td> <a href="{{ route('link.view',[$exigence->projet_id ,$exigence->id]) }}"> oui</a></td>
 				
-				<td>non </td>
+				@else
+				<td>non</td>
+				@endif
 				{{-- <td> {{ $exigence->created_at }}</td> --}}
 				@if($resultat->role == 'chef_projet' ||$resultat->role == 'stakeholders')
                 <td  style="width:1px; white-space:nowrap;" >

@@ -13,7 +13,7 @@
                 <!-- Basic Forms -->
                 <div class="box">
                     <div class="box-header with-border mb-4">
-                        <h4 class="box-title"><i class="fa fa-fw fa-user"></i>Gérer le profil</h4>
+                        <h4 class="box-title"><i class="fa fa-fw fa-user"></i> Manage profile</h4>
 
                     </div>
                     <!-- /.box-header -->
@@ -32,7 +32,7 @@
                                                 <div class="col-md-6 mb-4">
                                                     <div class="input-group mb-3">
                                                         <div class="input-group-prepend">
-                                                            <span class="input-group-text" id="basic-addon1">Nom</span>
+                                                            <span class="input-group-text" id="basic-addon1">Name</span>
                                                         </div>
                                                         <input type="text" name="name" class="form-control"
                                                                value="{{ $editData->name }}" required="">
@@ -57,7 +57,7 @@
                                                 <div class="col-md-6 mb-4">
                                                     <div class="input-group mb-3">
                                                         <div class="input-group-prepend">
-                                                            <span class="input-group-text" id="basic-addon1">Numéro de téléphone</span>
+                                                            <span class="input-group-text" id="basic-addon1">phone number</span>
                                                         </div>
                                                         <input type="text" name="mobile" class="form-control"
                                                                value="{{ $editData->mobile }}" required="">
@@ -67,7 +67,7 @@
                                                 <div class="col-md-6 mb-4">
                                                     <div class="input-group mb-3">
                                                         <div class="input-group-prepend">
-                                                            <span class="input-group-text" id="basic-addon1">Adresse</span>
+                                                            <span class="input-group-text" id="basic-addon1">Adress</span>
                                                         </div>
                                                         <input type="text" name="address" class="form-control"
                                                                value="{{ $editData->address }}" required="">
@@ -86,7 +86,7 @@
                                                             <label class="input-group-text" for="inputGroupSelect01">Sexe</label>
                                                         </div>
                                                         <select class="custom-select" name="gender" id="gender">
-                                                            <option selected disabled>Sélectionnez le sexe...</option>
+                                                            <option selected disabled>Select sexe...</option>
                                                             <option value="Male" {{ ($editData->gender == "Male" ? "selected": "") }} >Homme</option>
                                                             <option value="Female" {{ ($editData->gender == "Female" ? "selected": "") }} >Femme</option>
                                                         </select>
@@ -96,7 +96,7 @@
                                                 <div class="col-md-4">
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
-                                                            <span class="input-group-text" id="basic-addon1">Photo de profile</span>
+                                                            <span class="input-group-text" id="basic-addon1">Profile Photo</span>
                                                         </div>
                                                         <input id="image" type="file" name="image"
                                                                class="form-control"

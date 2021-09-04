@@ -5,6 +5,7 @@ use App\Http\Controllers\ProjetsController;
 use App\Http\Controllers\UseCasesController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ExigencesController;
+use App\Http\Controllers\LinksController;
 use App\Http\Controllers\requirementsController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MessageController;
@@ -69,12 +70,16 @@ Route::prefix('requirements')->group(function(){
     Route::post('/update/{id}', [ExigencesController::class, 'update'])->name('requirements.update');
     Route::post('/valide/{id}', [ExigencesController::class, 'valide'])->name('requirements.valide');
     Route::get('/delete/{id}', [ExigencesController::class, 'destroy'])->name('requirements.delete');
+    Route::get('/view/{id}/{id_exigence}', [LinksController::class, 'index'])->name('link.view');
+    Route::post('/delete', [LinksController::class, 'destroy'])->name('link.delete');
+    Route::post('/addnonfn', [LinksController::class, 'store'])->name('link.store');
 });
 Route::prefix('Softwarrequirements')->group(function(){
     Route::get('/view/{id}', [requirementsController::class, 'index'])->name('Srequirements.view');
     Route::get('/create/{id}', [requirementsController::class, 'create'])->name('Srequirements.add');
     Route::post('/store', [requirementsController::class, 'store'])->name('Srequirements.store');
     Route::get('/edit/{id}', [requirementsController::class, 'edit'])->name('Srequirements.edit');
+    Route::get('/source/{id}/{id_exigence}', [requirementsController::class, 'source'])->name('Srequirements.source');
     Route::get('/detail/{id}', [requirementsController::class, 'detail'])->name('Srequirements.detail');
     Route::post('/update/{id}', [requirementsController::class, 'update'])->name('Srequirements.update');
     Route::post('/valide/{id}', [requirementsController::class, 'valide'])->name('Srequirements.valide');
