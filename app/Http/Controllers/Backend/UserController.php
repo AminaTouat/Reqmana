@@ -99,7 +99,7 @@ class UserController extends Controller
 
     	$notification = array(
     		'message' => 'User Deleted Successfully',
-    		'alert-type' => 'info'
+    		'alert-type' => 'error'
     	);
 
     	return redirect()->route('user.view',$projet_id)->with($notification);
@@ -137,7 +137,7 @@ class UserController extends Controller
 			
  	
  	
- 	$html[$key]['tdsource'] .='<td>'.'<input type="hidden" name="user_id" value="'.$attend->id.'">'.'<input type="checkbox" name="checkmanage[]" id="'.$key.'" value="'.$key.'" '.$checked.' style="transform: scale(1.5);margin-left: 10px;"> <label for="'.$key.'"> </label> '.'</td>'; 
+ 	$html[$key]['tdsource'] .='<td>'.'<input type="hidden" name="" value="'.$attend->id.'">'.'<input type="checkbox" name="user_id[]" id="'.$key.'" value="'.$attend->id.'" '.$checked.' style="transform: scale(1.5);margin-left: 10px;"> <label for="'.$key.'"> </label> '.'</td>'; 
 
       } // end foreach
     	return response()->json(@$html);
@@ -150,18 +150,19 @@ class UserController extends Controller
 		$id = $request->user_id;
 		$role=$request->role;
 
-    	$checkdata = $request->checkmanage;
+    	// $checkdata = $request->checkmanage;
 		// $this->validate($request, [
 		// 	'user_id' =>'required|unique:user_projet,user_id,NULL,NULL,projet_id,'.$request['projet_id'],
 		// 	'projet_id' =>'required|unique:user_projet,projet_id,NULL,NULL,user_id,'.$request['user_id'],
 		// ]);
 
-    	if ($checkdata !=null) {
-    		for ($i=0; $i <count($checkdata) ; $i++) { 
+    	
+    		foreach($id as $id) { 
 				$data = User::Find($id);
+				//dd($data);
 				$data->projets()->save(Projet::Find($projet_id), ['inv'=>'0','role'=>$role]);
     		} 
-    	} // end if 
+     
 
     	if (!empty(@$data) || !empty($checkdata)) {
 

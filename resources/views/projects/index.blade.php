@@ -155,10 +155,10 @@
                     label: '# of Votes',
                     data: [data_must,data_should,data_may],
                     backgroundColor: [
-                        "#4b77a9",
-                        "#bf7cbf",
-                     "#d21243",
-                     "#B27200"
+                        "goldenrod",
+                        "crimson",
+                     "seagreen",
+                     
                     ],
                     borderColor: [
                         "#fff"
@@ -197,10 +197,10 @@
                     label: '# of Votes',
                     data: [data_Smust,data_Sshould,data_Smay],
                     backgroundColor: [
-                        "#4b77a9",
-                        "#bf7cbf",
-                     "#d21243",
-                     "#B27200"
+                        "goldenrod",
+                        "crimson",
+                     "seagreen"
+                     
                     ],
                     borderColor: [
                       "#fff"

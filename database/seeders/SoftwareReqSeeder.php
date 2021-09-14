@@ -25,10 +25,11 @@ class SoftwareReqSeeder extends Seeder
             On consultation with the stakeholders we arrive at the following.
               ',
             'projet_id' => '1',
-            'entredBy' => 'amina',
+            'entredBy' => 'Amina',
             'requirementType' => 'nonfunctional',
             'fitC' => 'The system shall be designed with black and white forms with a sky blue title bar and a yellow motif in the bottom right-hand corner copied from the company logo.',
             'importance' => 'may',
+            'exigence_id' => '1',
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
         DB::table('requirements')->insert([
@@ -36,10 +37,11 @@ class SoftwareReqSeeder extends Seeder
             'body' => 'TThe system shall obtain a hotel name from the user.
               ',
             'projet_id' => '1',
-            'entredBy' => 'amina',
+            'entredBy' => 'Amina',
             'requirementType' => 'functional',
             'fitC' => 'A valid range of dates shall be accepted.',
             'importance' => 'may',
+            'exigence_id' => '3',
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
         DB::table('requirements')->insert([
@@ -47,10 +49,11 @@ class SoftwareReqSeeder extends Seeder
             'body' => 'The system shall be easy for receptionists to use.
               ',
             'projet_id' => '1',
-            'entredBy' => 'amina',
+            'entredBy' => 'Sihem',
             'requirementType' => 'nonfunctional',
             'fitC' => 'Receptionists shall be able to learn how to use the system in 1 hour. All current receptionists shall be able to complete a reservation, check in or check out form in 2 minutes, assuming the guest has no special requirements.',
             'importance' => 'should',
+            'exigence_id' => '4',
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
         DB::table('requirements')->insert([
@@ -58,10 +61,11 @@ class SoftwareReqSeeder extends Seeder
             'body' => 'The system shall be able to handle a range of large and small hotels.
               ',
             'projet_id' => '1',
-            'entredBy' => 'amina',
+            'entredBy' => 'Amina',
             'requirementType' => 'nonfunctional',
             'fitC' => 'The system shall be able to handle up to 100 hotels, varying in size from 10 rooms to 1000 rooms.',
             'importance' => 'should',
+            'exigence_id' => '1',
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
         DB::table('requirements')->insert([
@@ -69,10 +73,11 @@ class SoftwareReqSeeder extends Seeder
             'body' => 'The system shall operate across the hotel chain, with a set of terminals in each hotel and a single central server.
               ',
             'projet_id' => '1',
-            'entredBy' => 'amina',
+            'entredBy' => 'Amina',
             'requirementType' => 'nonfunctional',
             'fitC' => 'Self-contained.',
             'importance' => 'may',
+            'exigence_id' => '3',
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
         DB::table('requirements')->insert([
@@ -80,10 +85,11 @@ class SoftwareReqSeeder extends Seeder
             'body' => 'The system shall allow a reserver/receptionist to initiate a reservation.
               ',
             'projet_id' => '1',
-            'entredBy' => 'amina',
+            'entredBy' => 'Amina',
             'requirementType' => 'functional',
             'fitC' => 'The reservation page shall be displayed.',
             'importance' => 'should',
+            'exigence_id' => '2',
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
         DB::table('requirements')->insert([
@@ -91,10 +97,11 @@ class SoftwareReqSeeder extends Seeder
             'body' => 'TThe system shall obtain a hotel name from the user.
               ',
             'projet_id' => '1',
-            'entredBy' => 'amina',
+            'entredBy' => 'Amina',
             'requirementType' => 'functional',
             'fitC' => 'A valid range of dates shall be accepted.',
             'importance' => 'may',
+            'exigence_id' => '2',
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
     }

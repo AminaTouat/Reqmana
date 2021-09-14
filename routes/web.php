@@ -64,6 +64,7 @@ Route::prefix('user')->group(function(){
 Route::prefix('requirements')->group(function(){
     Route::get('/view/{id}', [ExigencesController::class, 'index'])->name('requirements.view');
     Route::get('/create/{id}', [ExigencesController::class, 'create'])->name('requirements.add');
+    Route::get('/createe/{id}/{id_use}', [ExigencesController::class, 'createe'])->name('requirementsUse.add');
     Route::post('/store', [ExigencesController::class, 'store'])->name('requirements.store');
     Route::get('/edit/{id}', [ExigencesController::class, 'edit'])->name('requirements.edit');
     Route::get('/detail/{id}', [ExigencesController::class, 'detail'])->name('requirements.detail');
@@ -71,12 +72,14 @@ Route::prefix('requirements')->group(function(){
     Route::post('/valide/{id}', [ExigencesController::class, 'valide'])->name('requirements.valide');
     Route::get('/delete/{id}', [ExigencesController::class, 'destroy'])->name('requirements.delete');
     Route::get('/view/{id}/{id_exigence}', [LinksController::class, 'index'])->name('link.view');
+    Route::get('/view/{id}/{id_exigence}', [LinksController::class, 'software'])->name('software.view');
     Route::post('/delete', [LinksController::class, 'destroy'])->name('link.delete');
     Route::post('/addnonfn', [LinksController::class, 'store'])->name('link.store');
 });
 Route::prefix('Softwarrequirements')->group(function(){
     Route::get('/view/{id}', [requirementsController::class, 'index'])->name('Srequirements.view');
     Route::get('/create/{id}', [requirementsController::class, 'create'])->name('Srequirements.add');
+    Route::get('/createe/{id}/{id_userReq}', [requirementsController::class, 'createe'])->name('SrequirementsUser.add');
     Route::post('/store', [requirementsController::class, 'store'])->name('Srequirements.store');
     Route::get('/edit/{id}', [requirementsController::class, 'edit'])->name('Srequirements.edit');
     Route::get('/source/{id}/{id_exigence}', [requirementsController::class, 'source'])->name('Srequirements.source');

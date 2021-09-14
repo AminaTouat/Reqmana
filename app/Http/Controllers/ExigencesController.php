@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Exigence;
 use App\Models\Projet;
+use App\Models\Requirement;
 use App\Models\User;
 use Auth;
 use App\Models\Link;
@@ -29,9 +30,19 @@ class ExigencesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function createe($id,$id_use)
+    {
+        
+        $projet = Projet::find($id);
+        $id_use= $id_use;
+        $data['allData'] = User::join('user_projet','user_id','users.id')->where('user_projet.projet_id',$id)->get();
+        $resultat= Auth::user()->projets()->where('projet_id',$id)->select('user_projet.role')->first();
+        return view('backend.requirements.requirements_add' ,$data,compact('resultat','projet','id_use'));
+    }
     public function create($id)
     {
         $projet = Projet::find($id);
+       
         $data['allData'] = User::join('user_projet','user_id','users.id')->where('user_projet.projet_id',$id)->get();
         $resultat= Auth::user()->projets()->where('projet_id',$id)->select('user_projet.role')->first();
         return view('backend.requirements.requirements_add' ,$data,compact('resultat','projet'));
@@ -46,14 +57,7 @@ class ExigencesController extends Controller
     public function store(Request $request)
     {
        
-        // if($request->requirementType!= null && $request->importance!=null && $request->entredBy!=null && $request->source!=null && $request->summary!=null && $request->body!=null){
-        //     $request->status = "Implemented";
-        // }
-        // else  {$request->status = "Draft";}
-        // $input = $request->all();
-        // $id=$request->projet_id;
-        // Exigence::create($input);
-       
+      
         $data = new Exigence();
         $data->requirementType = $request->requirementType;
         $data->importance = $request->importance;
@@ -61,6 +65,7 @@ class ExigencesController extends Controller
         $data->source = $request->source;
         $data->summary = $request->summary;
         $data->body = $request->body;
+        $data->use_case_id = $request->id_use;
         if($data->requirementType!= null && $data->importance!=null && $data->entredBy!=null && $data->source!=null && $data->summary!=null && $data->body!=null){
             $data->status = "Implemented";
         }
@@ -111,11 +116,12 @@ class ExigencesController extends Controller
     }
     public function detail($id)
     {
+        $req=Requirement::where('exigence_id' , $id)->get();
         $editData = Exigence::find($id);
         $id = $editData->projet_id;
         $projet = Projet::find($id);
         $resultat= Auth::user()->projets()->where('projet_id',$id)->select('user_projet.role')->first();
-        return view('backend.requirements.requirements_detail',compact('resultat','editData','projet'));
+        return view('backend.requirements.requirements_detail',compact('resultat','editData','projet','req'));
         //
     }
 
@@ -154,6 +160,9 @@ class ExigencesController extends Controller
         $data->valide = $request->valide;
         if($request->valide=='1'){
         $data->status = "Approved";
+        }
+        if($request->valide=='0'){
+        $data->status = "Draft";
         }
         $data->save();
 

@@ -17,10 +17,11 @@ class CreateUseCasesTable extends Migration
             $table->timestamps();
             $table->increments('id');
             $table->string('image')->unique();
+            $table->string('title')->nullable();
             $table->integer('projet_id')->unsigned()->index();
         });
         Schema::table('use_cases', function($table) {
-            $table->foreign('projet_id')->references('id')->on('projets');
+            $table->foreign('projet_id')->references('id')->on('projets')->onDelete('cascade');;
         
     });
     }

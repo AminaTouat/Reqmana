@@ -39,7 +39,8 @@
                                             <div class="col-md-4">
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
-                                                        <span class="input-group-text" id="basic-addon1">Use case</span>
+                                                        {{-- <span class="input-group-text" id="basic-addon1">Use case</span> --}}
+                                                    <input type="text" placeholder="Enter  title " class="input-group-text" id="basic-addon1" name="title">
                                                     </div>
                                                     <input id="image" type="file" name="image"
                                                            class="form-control"
@@ -54,8 +55,11 @@
               url('upload/use_case/'.$use->image):url('upload/no_image.jpg') }}" alt="User Avatar"
                                                              style="width: 100px; border: 1px solid black;">
                                                     </div>
+                                                   
+                                             
                                                 </div>
                                             </div>
+                                        
                                                 <div class="col-sm-6">
                                                     <div class="text-xs-right">
                                                         <input type="submit" class="btn btn-rounded btn-info mb-5"
@@ -97,12 +101,14 @@
 						<thead>
 			<tr>
 				<th scope="col"></th>
+				<th scope="col"></th>
                 <th scope="col"></th>
 			</tr>
 		</thead>
 		<tbody>
 			@foreach($use as $key => $use  )
 			<tr>
+                <td width="10%"> {{$use->title}} </td>
                 <td width="25%"> 
                     <img id="showImage" class=" mx-auto" onclick="window.open(this.src,'_blank','toolbar=0, location=0, directories=0, status=0, scrollbars=0, resizable=0, copyhistory=0, menuBar=0, width=224, height=224');"
                     src="{{ (!empty($use->image))?
@@ -133,6 +139,7 @@ url('upload/use_case/'.$use->image):url('upload/no_image.jpg') }}" alt="User Ava
                     @if($resultat->role == 'chef_projet' ||$resultat->role == 'stakeholders')
                     {{-- <a href="" class="btn btn-info">Edit</a> --}}
                     <a href="{{ route('useCase.delete',$use->id ) }}" class="btn btn-danger" id="delete">Remove</a>
+                    <a  style="float: right;" class="btn btn-rounded btn-success mb-5" href="{{ route('requirementsUse.add',[$projet->id,$use->id]) }}"> Add user Req</a>
                     @endif
                     <a  class="btn btn-warning" value="Masquer" onclick="masquer_div('{{$use->id}}');" >Comment</a>
                     

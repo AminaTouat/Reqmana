@@ -17,7 +17,7 @@ class Message extends Model
      *
      * @var array
      */
-    protected $fillable = ['user_id',  'parent_id' ,  'body' ,'projet_id'];
+    protected $fillable = ['image','user_id',  'parent_id' ,  'body' ,'projet_id'];
    
     /**
      * The belongs to Relationship

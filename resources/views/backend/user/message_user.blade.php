@@ -1,3 +1,7 @@
+@php
+    $prefix = Request::route()->getPrefix();
+    $route = Route::current()->getName();
+@endphp
 @extends('projects.current_project')
 @section('projects')
 <div class="content-wrapper">
@@ -13,7 +17,7 @@
 <ul class="sidebar-menu" data-widget="tree">
 
     @foreach($allData as $key => $users )
-    <li class="">
+    <li class="{{ ($route == 'users.message'||$route =='users.send')?'active':'' }}">
         <a href="{{ route('users.send',[$users->id,$projet->id])}}">
             <i data-feather="message-circle"></i>
             <span>{{ $users->name }}</span>

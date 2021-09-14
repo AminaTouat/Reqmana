@@ -36,25 +36,25 @@
                         <i class="ti-more"></i>Use case</a>
 
                      <ul class="treeview-menu">
-                         <li class="{{ ($route =='add.useCase')?'active':'' }}"><a href="{{ route('add.useCase',$projet->id) }}"><i class="ti-hand-point-up"></i>Add use cas</a></li>
+                         <li class="{{ ($route =='add.useCase')?'active':'' }}"><a href="{{ route('add.useCase',$projet->id) }}"><i class="ti-hand-point-up"></i>Add use case</a></li>
                         <li class="treeview">
                             <a href="#"><i class="ti-more"></i>user requirements</a>
-                            @if(!$projet->usecases->isEmpty())
+                            {{-- @if(!$projet->usecases->isEmpty()) --}}
                             <ul class="treeview-menu">
-                                <li class="{{ ($route =='requirements.add'|| $route=='requirements.view' ||$route=='requirements.detail'||$route=='requirements.edit' ) ?'active':'' }}"><a href="{{ route('requirements.view',$projet->id) }}"><i class="ti-hand-point-up"></i>Add user requirements </a></li>
+                                <li class="{{ ($route =='requirements.add'|| $route=='requirements.view' ||$route=='requirementsUse.add'||$route=='requirements.detail'||$route=='requirements.edit' ) ?'active':'' }}"><a href="{{ route('requirements.view',$projet->id) }}"><i class="ti-hand-point-up"></i>Add user requirements </a></li>
                                
                                 <li class="treeview"><a href="#">
                                     <i class="ti-more"></i>software requirements</a>
-                                    @if(!$projet->exigences->isEmpty())
-                                <ul class="treeview-menu"> <li class="{{ ($route =='Srequirements.add'|| $route=='Srequirements.view' ||$route=='Srequirements.detail' ||$route=='Srequirements.edit' )?'active':'' }}"><a href="{{ route('Srequirements.view',$projet->id) }}"><i class="ti-hand-point-up"></i>Add software requirements </a>
+                                    {{-- @if(!$projet->exigences->isEmpty()) --}}
+                                <ul class="treeview-menu"> <li class="{{ ($route =='Srequirements.add'||$route =='SrequirementsUser.add'|| $route=='Srequirements.view' ||$route=='Srequirements.detail' ||$route=='Srequirements.edit' )?'active':'' }}"><a href="{{ route('Srequirements.view',$projet->id) }}"><i class="ti-hand-point-up"></i>Add software requirements </a>
                                 </li>
                                 
                                 </ul>
-                                @endif
+                                {{-- @endif --}}
                             </li>
                            
                             </ul>
-                            @endif
+                            {{-- @endif --}}
                          </li>
                         </ul>
                     </li>
@@ -62,7 +62,7 @@
                 </ul>
             </li>
 
-            <li class="{{ ($route == 'users.message')?'active':'' }}">
+            <li class="{{ ($route == 'users.message'||$route =='users.send')?'active':'' }}">
                 <a href="{{ route('users.message',$projet->id) }}">
                     <i data-feather="message-circle"></i>
                     <span>Messages</span>

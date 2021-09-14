@@ -15,9 +15,15 @@ class Exigence extends Model
      *
      * @var array
      */
-    protected $fillable = ['projet_id', 'summary','requirementType', 'importance', 'entredBy','source','body'];
+    protected $fillable = ['projet_id','use_case_id', 'summary','requirementType', 'importance', 'entredBy','source','body'];
     public function projet(){
         return $this->belongsTo(Projet::class);
+    }
+    public function useCase(){
+        return $this->belongsTo(UseCase::class);
+    }
+    public function requirements(){
+        return $this->hasMany(Requirement::class);
     }
     public function comments()
     {

@@ -16,8 +16,10 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                               <li class="breadcrumb-item"><a href="{{ route('project.new') }}">{{$projet->title}}</a></li>
-                              <li class="breadcrumb-item active" aria-current="page"> Use case</li>
-                              <li class="breadcrumb-item active" aria-current="page"> user requirements</li>
+                              @if(!empty($id_use ))
+							  <li class="breadcrumb-item active" aria-current="page"> {{ App\Models\UseCase::find($id_use)->title}}</li>
+							  @endif
+                              <li class="breadcrumb-item active" aria-current="page">  add user requirements</li>
                             </ol>
                           </nav>
                         <div class="row">
@@ -127,6 +129,9 @@
 													<h6>Description <span class="text-danger">*</span></h6>
 													<textarea class="form-control" name="body" required></textarea>
 													<input type="hidden" name="projet_id" value="{{ $projet->id }}" />
+                                                    @if(!empty($id_use))
+													<input type="hidden" name="id_use" value="{{ $id_use }}" />
+                                                    @endif
 												</div>
                                                 
                                                   

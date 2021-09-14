@@ -20,7 +20,6 @@
 					<nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                           <li class="breadcrumb-item"><a href="{{ route('project.new') }}">{{$projet->title}}</a></li>
-                          <li class="breadcrumb-item active" aria-current="page"> Use case</li>
                           <li class="breadcrumb-item active" aria-current="page"> software requirements</li>
                         </ol>
                       </nav>
@@ -83,13 +82,15 @@
 				<td style="width:1px; white-space:nowrap;"><i data-feather="flag" style="color :rgb(20, 220, 87) ;"></i>{{ $exigence->status }}</td>
 				@endif
 				
-				@if($resultat->role == 'chef_projet' ||$resultat->role == 'stakeholders')
+				@if(($resultat->role == 'chef_projet') ||($resultat->role == 'stakeholders' && ($exigence->entredBy==Auth::user()->name) ))
                 <td  style="width:1px; white-space:nowrap;" >
 					
 <a href="{{ route('Srequirements.edit',$exigence->id) }}" class="btn btn-info">Edit</a>
 <a href="{{ route('Srequirements.delete',$exigence->id ) }}" class="btn btn-danger">remove</a>
 
 				</td>
+				@elseif($resultat->role == 'stakeholders')
+				<td></td>
 			
 				@endif
 			</tr>

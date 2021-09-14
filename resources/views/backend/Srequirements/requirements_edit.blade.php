@@ -14,12 +14,14 @@
                 <div class="box">
                     <div class="box-header with-border">
                         <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                              <li class="breadcrumb-item"><a href="{{ route('project.new') }}">{{$projet->title}}</a></li>
-                              <li class="breadcrumb-item active" aria-current="page"> Use case</li>
-                              <li class="breadcrumb-item active" aria-current="page"> software requirements</li>
-                            </ol>
-                          </nav>
+							<ol class="breadcrumb">
+							  <li class="breadcrumb-item"><a href="{{ route('project.new') }}">{{$projet->title}}</a></li>
+							  @if($editData->exigence_id !=null)
+							  <li class="breadcrumb-item active" aria-current="page"> {{ $editData->exigence->summary}}</li>
+							  @endif
+							  <li class="breadcrumb-item active" aria-current="page"> {{$editData->summary}}</li>
+							</ol>
+						  </nav>
                         <div class="row">
                             <div class="col-6">
                         <h5 class="box-title">Update software Requirement</h5>
@@ -102,13 +104,13 @@
 													
 												<div class="row" style="margin-top: 27px;">
 													<div class="col-4">
-													<h6>source</h6>
+													<h6>User Req</h6>
 												</div>
 												<div class="col-8">
 													<div class="controls">
-                                                        <select name="source" id="source" required=""
+                                                        <select name="exigence_id" id="exigence_id" required=""
                                                         class="form-control">
-                                                        <option value="{{$editData->source}}" >{{$editData->source}}
+                                                        <option value="{{$editData->exigence_id}}" >{{$editData->exigence_id}}
                                                         </option>
                                                         @foreach(App\Models\Exigence::get() as $key => $exigence )
                                                         <option value="{{ $exigence->id }}" >{{ $exigence->id}}

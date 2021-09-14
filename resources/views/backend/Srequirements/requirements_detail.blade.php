@@ -12,7 +12,16 @@
                 <!-- Basic Forms -->
                 <div class="box">
                     <div class="box-header with-border">
-                        <h5 class="box-title">{{$editData->summary}}</h5>
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb">
+							  <li class="breadcrumb-item"><a href="{{ route('project.new') }}">{{$projet->title}}</a></li>
+							  @if($editData->exigence_id !=null)
+							  <li class="breadcrumb-item active" aria-current="page"> {{ $editData->exigence->summary}}</li>
+							  @endif
+							  <li class="breadcrumb-item active" aria-current="page"> {{$editData->summary}}</li>
+							</ol>
+						  </nav>
+                        
 
                     </div>
                     <!-- /.box-header -->
@@ -58,16 +67,16 @@
 													
 												<div class="row" style="margin-top: 27px;">
 													<div class="col-7">
-													<h6>Source</h6>
+													<h6>User Req</h6>
 												</div>
-												@if($editData->source !=null)
+												@if($editData->exigence_id !=null)
 												<div class="col-5">
-                                                    <h6 ><a style="color:black;" href="{{ route('Srequirements.source',[$projet->id ,$editData->source]) }}">UFR{{$editData->source}}</a></h6>
+                                                    <h6 ><a style="color:black;" href="{{ route('Srequirements.source',[$projet->id ,$editData->exigence_id]) }}">UR{{$editData->exigence_id}}</a></h6>
 													
 												</div>
 												@else
 												<div class="col-5">
-                                                    <h6 ><a style="color:black;">UFR{{$editData->source}}</a></h6>
+                                                    
 													
 												</div>
 												@endif
@@ -139,12 +148,13 @@
                             </div>
                             <!-- /.col -->
                         </div>
-			
+						@if(($resultat->role == 'chef_projet') ||($resultat->role == 'stakeholders' && ($editData->entredBy==Auth::user()->name) ))
 						<div class="row" style="margin-top: 27px;">
 						<div class="text-xs-right">
 							<a href="{{ route('Srequirements.edit',$editData->id) }}" class="btn btn-info">Edit</a>
 						</div>
 						</div>
+						@endif
                         <!-- /.row -->
                     </div>
                     <!-- /.box-body -->

@@ -9,11 +9,14 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 class UseCase extends Model
 {
     protected $table = 'use_cases';
-    protected $fillable = ['projet_id', 'image'];
+    protected $fillable = ['projet_id', 'image','title'];
     use HasFactory;
 
     public function projet(){
         return $this->belongsTo(Projet::class);
+    }
+    public function exigences(){
+        return $this->hasMany(Exigence::class);
     }
     public function comments()
     {

@@ -15,12 +15,14 @@
                     <div class="box-header with-border">
                         
                         <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                              <li class="breadcrumb-item"><a href="{{ route('project.new') }}">{{$projet->title}}</a></li>
-                              <li class="breadcrumb-item active" aria-current="page"> Use case</li>
-                              <li class="breadcrumb-item active" aria-current="page"> user requirements</li>
-                            </ol>
-                          </nav>
+							<ol class="breadcrumb">
+							  <li class="breadcrumb-item"><a href="{{ route('project.new') }}">{{$projet->title}}</a></li>
+							  @if($editData->useCase !=null)
+							  <li class="breadcrumb-item active" aria-current="page"> {{ $editData->useCase->title }}</li>
+							  @endif
+							  <li class="breadcrumb-item active" aria-current="page"> {{$editData->summary}}</li>
+							</ol>
+						  </nav>
                           
                         <div class="row">
                             <div class="col-6">
@@ -37,9 +39,19 @@
                         </div>
                             <div class="row" style="margin-top: 20px;">
                             <div class="col-6">
-                        <a href="" data-toggle="modal" data-target="#exampleModal">
+                                <div class="dropdown">
+                                    <a  href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Add ...
+                                      </a>
+                                      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        <a class="dropdown-item" href="{{ route('SrequirementsUser.add',[$projet->id,$editData->id]) }}">Software Req</a>
+                                        <a class="dropdown-item" href="" data-toggle="modal" data-target="#exampleModal">Non Fonctional Req</a>
+                                        
+                                      </div>
+                                </div>
+                        {{-- <a href="" data-toggle="modal" data-target="#exampleModal">
                             Add  ...
-                          </a>
+                          </a> --}}
                             </div>
                         </div>
 

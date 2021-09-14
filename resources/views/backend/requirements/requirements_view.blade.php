@@ -20,7 +20,7 @@
 					<nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                           <li class="breadcrumb-item"><a href="{{ route('project.new') }}">{{$projet->title}}</a></li>
-                          <li class="breadcrumb-item active" aria-current="page"> Use case</li>
+            
                           <li class="breadcrumb-item active" aria-current="page"> user requirements</li>
                         </ol>
                       </nav>
@@ -48,9 +48,10 @@
 				<th>Has A non functional Req </th>
 
 				{{-- <th >Date Entered</th> --}}
-				@if($resultat->role == 'chef_projet' ||$resultat->role == 'stakeholders')
+				@if($resultat->role == 'chef_projet'||$resultat->role == 'stakeholders')
                 <th >Action</th>
 				@endif
+				
 			</tr>
 		</thead>
 		<tbody>
@@ -95,13 +96,15 @@
 				<td>non</td>
 				@endif
 				{{-- <td> {{ $exigence->created_at }}</td> --}}
-				@if($resultat->role == 'chef_projet' ||$resultat->role == 'stakeholders')
+				@if(($resultat->role == 'chef_projet') ||($resultat->role == 'stakeholders' && ($exigence->entredBy==Auth::user()->name) ))
                 <td  style="width:1px; white-space:nowrap;" >
 					
 <a href="{{ route('requirements.edit',$exigence->id) }}" class="btn btn-info">Edit</a>
 <a href="{{ route('requirements.delete',$exigence->id ) }}" class="btn btn-danger">remove</a>
 
 				</td>
+				@elseif($resultat->role == 'stakeholders')
+				<td></td>
 			
 				@endif
 			</tr>

@@ -16,8 +16,10 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                               <li class="breadcrumb-item"><a href="{{ route('project.new') }}">{{$projet->title}}</a></li>
-                              <li class="breadcrumb-item active" aria-current="page"> Use case</li>
-                              <li class="breadcrumb-item active" aria-current="page"> software requirements</li>
+                              @if(!empty($idUserRes))
+							  <li class="breadcrumb-item active" aria-current="page"> {{ App\Models\Exigence::find($idUserRes)->title}}</li>
+							  @endif
+                              <li class="breadcrumb-item active" aria-current="page">  add user requirements</li>
                             </ol>
                           </nav>
                         <div class="row">
@@ -101,13 +103,13 @@
 													
 												<div class="row" style="margin-top: 27px;">
 													<div class="col-4">
-													<h6>Source</h6>
+													<h6>User Req</h6>
 												</div>
 												<div class="col-8">
 													<div class="controls">
-														<select name="source" id="source" required=""
+														<select name="exigence_id" id="exigence_id" required=""
 																class="form-control">
-                                                                <option value="source" selected="" disabled="">not set
+                                                                <option value="exigence_id" selected="" disabled="">not set
                                                                 </option>
                                                                 @foreach(App\Models\Exigence::get() as $key => $exigence )
                                                                 <option value="{{ $exigence->id }}" >{{ $exigence->id}}
@@ -120,7 +122,7 @@
 												</div>	
 												
 											</div>
-                                            <div class="row" style="margin-top: 27px;">
+                                            {{-- <div class="row" style="margin-top: 27px;">
                                                 <div class="col-4">
                                                 <h6>fit criteria </h6>
                                             </div>
@@ -128,7 +130,7 @@
                                                 <textarea class="form-control" name="fitC"></textarea>
                                             </div>
                                               
-                                        </div>
+                                        </div> --}}
                                                     
 											</div>
 											<div class="col-9">
@@ -136,7 +138,17 @@
 													<h6>Description <span class="text-danger">*</span></h6>
 													<textarea class="form-control" name="body" required></textarea>
 													<input type="hidden" name="projet_id" value="{{ $projet->id }}" />
+                                                    @if(!empty($idUserRes))
+													<input type="hidden" name="exigence_id" value="{{ $idUserRes }}" />
+                                                    @endif
 												</div>
+                                                <div class="row" style="margin-top: 27px;">
+                                                    <div class="form-group">
+                                                        <h6>fit criteria</h6>
+                                                        <textarea class="form-control"name="fitC" rows="2" cols="10"></textarea>
+                                                    </div>
+                                                  
+                                            </div>
                                              
 										</div>
                                            <!-- End Row -->

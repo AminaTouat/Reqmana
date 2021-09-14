@@ -36,6 +36,15 @@ class requirementsController extends Controller
         //  $exigence = Exigence::get();
         return view('backend.Srequirements.requirements_add' ,$data,compact('resultat','projet'));
     }
+    public function createe($id,$idUserRes)
+    {
+        $idUserRes = $idUserRes;
+        $projet = Projet::find($id);
+        $data['allData'] = User::join('user_projet','user_id','users.id')->where('user_projet.projet_id',$id)->get();
+        $resultat= Auth::user()->projets()->where('projet_id',$id)->select('user_projet.role')->first();
+        //  $exigence = Exigence::get();
+        return view('backend.Srequirements.requirements_add' ,$data,compact('resultat','projet','idUserRes'));
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -49,11 +58,11 @@ class requirementsController extends Controller
         $data->requirementType = $request->requirementType;
         $data->importance = $request->importance;
         $data->entredBy = $request->entredBy;
-        $data->source = $request->source;
+        $data->exigence_id = $request->exigence_id;
         $data->fitC = $request->fitC;
         $data->summary = $request->summary;
         $data->body = $request->body;
-        if($data->requirementType!= null && $data->importance!=null && $data->entredBy!=null && $data->source!=null && $data->summary!=null && $data->body!=null){
+        if($data->requirementType!= null && $data->importance!=null && $data->entredBy!=null && $data->exigence_id!=null && $data->summary!=null && $data->body!=null){
             $data->status = "Implemented";
         }
         else  $data->status = "Draft";
@@ -122,11 +131,11 @@ class requirementsController extends Controller
         $data->requirementType = $request->requirementType;
         $data->importance = $request->importance;
         $data->entredBy = $request->entredBy;
-        $data->source = $request->source;
+        $data->exigence_id = $request->exigence_id;
         $data->fitC = $request->fitC;
         $data->summary = $request->summary;
         $data->body = $request->body;
-        if($data->requirementType!= null && $data->importance!=null && $data->entredBy!=null && $data->source!=null && $data->summary!=null && $data->body!=null){
+        if($data->requirementType!= null && $data->importance!=null && $data->entredBy!=null && $data->exigence_id!=null && $data->summary!=null && $data->body!=null){
             $data->status = "Implemented";
         }
         else  $data->status = "Draft";
@@ -145,6 +154,9 @@ class requirementsController extends Controller
         $data->valide = $request->valide;
         if($request->valide=='1'){
             $data->status = "Approved";
+            }
+        if($request->valide=='0'){
+            $data->status = "Draft";
             }
         $data->save();
 

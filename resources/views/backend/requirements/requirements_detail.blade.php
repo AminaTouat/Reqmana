@@ -13,7 +13,16 @@
                 <div class="box">
                     <div class="box-header with-border">
 						<a href="{{ route('requirements.view',$projet->id) }}"><i data-feather="arrow-left" style="size: 60px" ></i></a>
-                        <h5 class="box-title">{{$editData->summary}}</h5>
+                        <nav aria-label="breadcrumb">
+							<ol class="breadcrumb">
+							  <li class="breadcrumb-item"><a href="{{ route('project.new') }}">{{$projet->title}}</a></li>
+							  @if($editData->useCase !=null)
+							  <li class="breadcrumb-item active" aria-current="page"> {{ $editData->useCase->title }}</li>
+							  @endif
+							  <li class="breadcrumb-item active" aria-current="page"> {{$editData->summary}}</li>
+							</ol>
+						  </nav>
+						{{-- <h5 class="box-title">{{$editData->summary}}</h5> --}}
 
                     </div>
                     <!-- /.box-header -->
@@ -87,6 +96,44 @@
 												</div>	
 												
 											</div>
+											
+											@if($editData->useCase !=null)
+												<div class="row" style="margin-top: 27px;">
+													<div class="col-7">
+													<h6>Use case</h6>
+												</div>
+												<div class="col-5">
+                                                    <h6 style="color:black;">{{ $editData->useCase->title }}</h6>
+													
+												</div>	
+												
+											</div>
+                                                    @endif
+											
+											
+											@if(!empty($req))
+												<div class="row" style="margin-top: 27px;">
+													<div class="col-7">
+													<h6>Software Req</h6>
+												</div>
+												<div class="col-5">
+                                                  
+														<div class="dropdown">
+															<a  href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+																Software Req...
+															  </a>
+															  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+																@foreach($req as $req)
+																<a class="dropdown-item" href="{{ route('software.view',[$projet->id ,$req->id]) }}">{{ $req->summary  }}</a>
+																@endforeach
+															  </div>
+														</div>
+													
+												</div>	
+												
+											</div>
+                                                    @endif
+											
                                                     
 											</div>
 											<div class="col-6">
@@ -123,9 +170,11 @@
                             </div>
                             <!-- /.col -->
                         </div>
+						@if(($resultat->role == 'chef_projet') ||($resultat->role == 'stakeholders' && ($editData->entredBy==Auth::user()->name) ))
 						<div class="text-xs-right">
 							<a href="{{ route('requirements.edit',$editData->id) }}" class="btn btn-info">Edit</a>
 						</div>
+						@endif
                         <!-- /.row -->
                     </div>
                     <!-- /.box-body -->

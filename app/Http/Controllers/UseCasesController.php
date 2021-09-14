@@ -32,12 +32,14 @@ class UseCasesController extends Controller
     public function create(Request $request,$id)
     {
           $data = new UseCase();
+          
           if ($request->file('image')) {
     		$file = $request->file('image');
     		@unlink(public_path('upload/use_case/'.$data->image));
     		$filename = $file->getClientOriginalName();
     		$file->move(public_path('upload/use_case'),$filename);
     		$data['image'] = $filename;
+            $data->title=$request->title;
             $data->projet()->associate(Projet::Find($id));
         $data->save();
         $notification = array(

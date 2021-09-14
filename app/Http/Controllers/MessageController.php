@@ -54,15 +54,26 @@ class MessageController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $request->validate([
-            'body'=>'required',
-        ]);
+        $data = new Message();
+        // $request->validate([
+        //     'body'=>'required',
+        // ]);
    
-        $input = $request->all();
-        $input['user_id'] = auth()->user()->id;
-    
-        Message::create($input);
+        // $input = $request->all();
+        $data->body=$request->body;
+        $data->projet_id=$request->projet_id;
+        $data->parent_id=$request->parent_id;
+
+        $data['user_id'] = auth()->user()->id;
+        
+        if ($request->file('image')) {
+        $file = $request->file('image');
+    		@unlink(public_path('upload/message/'.$data->image));
+    		$filename = $file->getClientOriginalName();
+    		$file->move(public_path('upload/message'),$filename);
+    		$data['image'] = $filename;}
+            $data->save();
+        // Message::create($input);
    
         return back();
     }

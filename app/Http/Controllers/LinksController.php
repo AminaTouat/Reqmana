@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Projet;
+use App\Models\Requirement;
 use Auth;
 use App\Models\Link;
 
@@ -15,6 +16,14 @@ class LinksController extends Controller
         $exigences = Link::where('parent_id' , $id_exigence)->get();
         $resultat= Auth::user()->projets()->where('projet_id',$id)->select('user_projet.role')->first();
         return view('backend.requirements.nonfon' , compact('resultat','exigences','projet'));
+    }
+    public function software($id,$id_software)
+    {
+        $projet = Projet::find($id);
+        $exigence = Requirement::find($id_software)->first();
+        //dd($exigences);
+        $resultat= Auth::user()->projets()->where('projet_id',$id)->select('user_projet.role')->first();
+        return view('backend.requirements.software' , compact('resultat','exigence','projet'));
     }
     //
     public function store(Request $request)

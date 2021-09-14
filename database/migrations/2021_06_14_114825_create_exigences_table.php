@@ -17,6 +17,7 @@ class CreateExigencesTable extends Migration
             $table->timestamps();
             $table->increments('id');
             $table->integer('projet_id')->unsigned()->index();
+            //$table->integer('use_case_id')->unsigned()->nullable();
             $table->string('requirementType')->nullable();
             $table->string('importance')->nullable();
             $table->string('entredBy');
@@ -28,8 +29,10 @@ class CreateExigencesTable extends Migration
             $table->softDeletes();
         });
         Schema::table('exigences', function($table) {
-            $table->foreign('projet_id')->references('id')->on('projets');
+            $table->foreign('projet_id')->references('id')->on('projets')->onDelete('cascade');;
     });
+       
+      
     }
 
     /**

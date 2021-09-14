@@ -19,6 +19,9 @@ class Requirement extends Model
     public function projet(){
         return $this->belongsTo(Projet::class);
     }
+    public function exigence(){
+        return $this->belongsTo(Exigence::class);
+    }
     public function comments()
     {
         return $this->hasMany(Comment::class)->whereNull('parent_id');
